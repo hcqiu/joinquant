@@ -41,9 +41,17 @@ class Context:
             return []
 
     def history(self, security, bar_count, frequency, field):
-        # Load historical data
-        end_date = '2023-04-28'  # Example end date
-        start_date = '2023-04-24' # Example start date
+        # Calculate start and end dates based on bar_count and frequency
+        end_date = pd.to_datetime('2023-04-28')  # Example end date
+        if frequency == '1d':
+            start_date = end_date - pd.Timedelta(days=bar_count)
+        else:
+            self.log.error(f"Unsupported frequency: {frequency}")
+            return pd.Series()
+
+        start_date = start_date.strftime('%Y-%m-%d')
+        end_date = end_date.strftime('%Y-%m-%d')
+
         data = data_loader.load_data(symbol=security, start_date=start_date, end_date=end_date)
         if data is None:
             self.log.error(f"Failed to load history data for {security}")
@@ -66,30 +74,45 @@ def order_target_value(context, security, target_value, price):
 
 def run_backtest():
     try:
-        # Load data
-        data = data_loader.load_data(symbol='sh000001', start_date='2023-04-24', end_date='2023-04-28')
-        if data is None:
-            logging.error("Failed to load data.")
-            return
+        # Define backtesting parameters
+        start_date = '2023-04-24'
+        end_date = '2023-04-28'
+        frequency = '1d'
+        time = 'Close'
 
         # Create context
         context = Context(log)
         context.order_target_value = order_target_value
 
         # Initialize strategy
-        strategy.initialize(context)
+        strategy.initialize(context, start_date, end_date, frequency, time)
+
+        # Generate date range based on frequency
+        dates = pd.date_range(start=context.g.start_date, end=context.g.end_date, freq=context.g.frequency)
 
         # Backtesting loop
-        for i in range(len(data)):
+        for date in dates:
+            date_str = date.strftime('%Y-%m-%d')
+
+            # Load data for the current date
+            data = data_loader.load_data(symbol='sh000001', start_date=date_str, end_date=date_str)
+            if data is None:
+                logging.warning(f"No data loaded for {date_str}, skipping.")
+                continue
+
+            if len(data) == 0:
+                logging.warning(f"No data for {date_str}, skipping.")
+                continue
+
             # Get current data point
-            current_data = data.iloc[i]
-            context.price = current_data['Close'] # Update price in context
+            current_data = data.iloc[0]
+            context.price = current_data[context.g.time]  # Update price in context
 
             # Execute strategy
             strategy.handle_data(context, data)
 
             # Log the portfolio status
-            logging.info(f"Date: {current_data.name}, Cash: {context.cash}, Total Assets: {context.total_assets}")
+            logging.info(f"Date: {date_str}, Cash: {context.cash}, Total Assets: {context.total_assets}")
 
         logging.info("Backtesting completed successfully.")
 
