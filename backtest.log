@@ -1,0 +1,36 @@
+2025-02-08 17:13:37,696 - WARNING - Index symbol 000001.XSHG not found in index_constituents.json
+2025-02-08 17:13:37,696 - INFO - Strategy initialized for sh000001 with index 000001.XSHG and constituents [], start_date: 2023-01-01, end_date: 2023-01-10, frequency: daily, time: close, initial_capital: 10000000
+2025-02-08 17:13:37,698 - INFO - Order: security=sh000001, target_value=200000, price=3275.41, amount_to_trade=61.06105800495205
+2025-02-08 17:13:37,698 - INFO - Current holdings: 61.06105800495205, Cash: 9800000.0, Total Assets: 10000000.0
+2025-02-08 17:13:37,698 - INFO - Date: 2023-04-24, Cash: 9800000.0, Total Assets: 10000000.0
+2025-02-08 17:13:37,699 - INFO - Order: security=sh000001, target_value=200000, price=3264.87, amount_to_trade=0.19712379095406485
+2025-02-08 17:13:37,699 - INFO - Current holdings: 61.25818179590612, Cash: 9799356.416448629, Total Assets: 9999356.416448629
+2025-02-08 17:13:37,699 - INFO - Date: 2023-04-25, Cash: 9799356.416448629, Total Assets: 9999356.416448629
+2025-02-08 17:13:37,700 - INFO - Order: security=sh000001, target_value=200000, price=3264.1, amount_to_trade=0.014450782752624845
+2025-02-08 17:13:37,700 - INFO - Current holdings: 61.272632578658744, Cash: 9799309.247648645, Total Assets: 9999309.247648645
+2025-02-08 17:13:37,700 - INFO - Date: 2023-04-26, Cash: 9799309.247648645, Total Assets: 9999309.247648645
+2025-02-08 17:13:37,701 - INFO - Order: security=sh000001, target_value=200000, price=3285.88, amount_to_trade=-0.40613714973255693
+2025-02-08 17:13:37,701 - INFO - Current holdings: 60.866495428926186, Cash: 9800643.765586209, Total Assets: 10000643.765586209
+2025-02-08 17:13:37,701 - INFO - Date: 2023-04-27, Cash: 9800643.765586209, Total Assets: 10000643.765586209
+2025-02-08 17:13:37,701 - INFO - Order: security=sh000001, target_value=200000, price=3323.27, amount_to_trade=-0.684806911291447
+2025-02-08 17:13:37,701 - INFO - Current holdings: 60.18168851763474, Cash: 9802919.563850297, Total Assets: 10002919.563850297
+2025-02-08 17:13:37,701 - INFO - Date: 2023-04-28, Cash: 9802919.563850297, Total Assets: 10002919.563850297
+2025-02-08 17:13:37,701 - INFO - Backtesting completed successfully.
+2025-02-08 17:13:59,618 - INFO - Getting index stocks for sh000001.XSHG from file
+2025-02-08 17:13:59,618 - INFO - Strategy initialized for sh000001 with index sh000001.XSHG and constituents ['600000.XSHG', '600004.XSHG', '600005.XSHG', '600008.XSHG', '600015.XSHG'], start_date: 2023-01-01, end_date: 2023-01-10, frequency: daily, time: close, initial_capital: 10000000
+2025-02-08 17:13:59,620 - INFO - Order: security=sh000001, target_value=200000, price=3275.41, amount_to_trade=61.06105800495205
+2025-02-08 17:13:59,620 - INFO - Current holdings: 61.06105800495205, Cash: 9800000.0, Total Assets: 10000000.0
+2025-02-08 17:13:59,620 - INFO - Date: 2023-04-24, Cash: 9800000.0, Total Assets: 10000000.0
+2025-02-08 17:13:59,620 - INFO - Order: security=sh000001, target_value=200000, price=3264.87, amount_to_trade=0.19712379095406485
+2025-02-08 17:13:59,620 - INFO - Current holdings: 61.25818179590612, Cash: 9799356.416448629, Total Assets: 9999356.416448629
+2025-02-08 17:13:59,620 - INFO - Date: 2023-04-25, Cash: 9799356.416448629, Total Assets: 9999356.416448629
+2025-02-08 17:13:59,621 - INFO - Order: security=sh000001, target_value=200000, price=3264.1, amount_to_trade=0.014450782752624845
+2025-02-08 17:13:59,621 - INFO - Current holdings: 61.272632578658744, Cash: 9799309.247648645, Total Assets: 9999309.247648645
+2025-02-08 17:13:59,621 - INFO - Date: 2023-04-26, Cash: 9799309.247648645, Total Assets: 9999309.247648645
+2025-02-08 17:13:59,621 - INFO - Order: security=sh000001, target_value=200000, price=3285.88, amount_to_trade=-0.40613714973255693
+2025-02-08 17:13:59,621 - INFO - Current holdings: 60.866495428926186, Cash: 9800643.765586209, Total Assets: 10000643.765586209
+2025-02-08 17:13:59,621 - INFO - Date: 2023-04-27, Cash: 9800643.765586209, Total Assets: 10000643.765586209
+2025-02-08 17:13:59,622 - INFO - Order: security=sh000001, target_value=200000, price=3323.27, amount_to_trade=-0.684806911291447
+2025-02-08 17:13:59,622 - INFO - Current holdings: 60.18168851763474, Cash: 9802919.563850297, Total Assets: 10002919.563850297
+2025-02-08 17:13:59,622 - INFO - Date: 2023-04-28, Cash: 9802919.563850297, Total Assets: 10002919.563850297
+2025-02-08 17:13:59,622 - INFO - Backtesting completed successfully.

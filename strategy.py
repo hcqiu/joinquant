@@ -1,22 +1,24 @@
 def initialize(context):
-    g.short_window = 2
-    g.long_window = 5
-    g.index_symbol = '000001.XSHG'  # Example index
-    g.start_date = '2023-01-01'
-    g.end_date = '2023-01-10'
-    g.frequency = 'daily'
-    g.time = 'close'
-    g.initial_capital = 10000000  # Define initial capital
-    context.index_stocks = get_index_stocks(g.index_symbol)
-    log.info(f"Strategy initialized for {context.security} with index {g.index_symbol} and constituents {context.index_stocks}, start_date: {g.start_date}, end_date: {g.end_date}, frequency: {g.frequency}, time: {g.time}, initial_capital: {g.initial_capital}")
+    context.g.index_symbol = 'sh000300.XSHG'  # CSI 300 index
+    context.g.top_n = 0.2  # Top 20%
+    context.index_stocks = context.get_index_stocks(context.g.index_symbol)
+    context.cash = 10000000  # Initial capital
+    context.total_assets = context.cash
+    context.log.info(f"Strategy initialized with index {context.g.index_symbol} and constituents {context.index_stocks}, initial_capital: {context.cash}")
 
-def handle_data(context, data, price):
-    data['short_ma'] = data['Close'].rolling(window=g.short_window).mean()
-    data['long_ma'] = data['Close'].rolling(window=g.long_window).mean()
+def handle_data(context, data):
+    # Compute previous day's price change
+    price_change = data['Close'].pct_change()
 
-    if data['short_ma'].iloc[-1] > data['long_ma'].iloc[-1]:
-        order_target_value(context, context.security, 200000, price)  # Buy
-    elif data['short_ma'].iloc[-1] < data['long_ma'].iloc[-1]:
-        order_target_value(context, context.security, 0, price)  # Sell
+    # Rank stocks based on price change
+    ranked_stocks = price_change.sort_values(ascending=False)
 
-    log.info(f"Current holdings: {context.positions.get(context.security, 0)}, Cash: {context.cash}, Total Assets: {context.total_assets}")
+    # Select top N stocks
+    num_stocks_to_buy = int(len(context.index_stocks) * context.g.top_n)
+    stocks_to_buy = ranked_stocks.index[:num_stocks_to_buy]
+
+    # Buy the selected stocks
+    for stock in stocks_to_buy:
+        context.order_target_value(context, stock, 200000 / num_stocks_to_buy, context.price)
+
+    context.log.info(f"Current holdings: {context.positions.get(context.security, 0)}, Cash: {context.cash}, Total Assets: {context.total_assets}")
