@@ -2,6 +2,7 @@ import data_loader
 import strategy
 import logging
 import pandas as pd
+import json
 
 # Configure logging
 logging.basicConfig(filename='backtest.log', level=logging.INFO,
@@ -23,9 +24,22 @@ class Context:
         return self.positions.get(security, default)
 
     def get_index_stocks(self, index_symbol):
-        # Placeholder for getting index stocks. Replace with actual implementation if needed.
-        logging.info(f"Getting index stocks for {index_symbol}")
-        return ['600000.XSHG', '600004.XSHG']  # Return some dummy stocks
+        # Load index constituents from JSON file
+        try:
+            with open('/workspace/joinquant/index_constituents.json', 'r') as f:
+                index_constituents = json.load(f)
+            if index_symbol in index_constituents:
+                logging.info(f"Getting index stocks for {index_symbol} from file")
+                return index_constituents[index_symbol]
+            else:
+                logging.warning(f"Index symbol {index_symbol} not found in index_constituents.json")
+                return []
+        except FileNotFoundError:
+            logging.error("index_constituents.json not found.")
+            return []
+        except json.JSONDecodeError:
+            logging.error("index_constituents.json is not a valid JSON file.")
+            return []
 
 def order_target_value(context, security, target_value, price):
     current_value = context.positions.get(security, 0) * price
