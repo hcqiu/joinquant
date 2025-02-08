@@ -41,6 +41,10 @@ class Context:
             return []
 
     def history(self, security, bar_count, frequency, field):
+        if security.endswith('.XSHE'):
+            security = 'sz' + security[:6]
+        elif security.endswith('.XSHG'):
+            security = 'sh' + security[:6]
         # Calculate start and end dates based on bar_count and frequency
         end_date = pd.to_datetime('2023-04-28')  # Example end date
         if frequency == '1d':
@@ -95,7 +99,7 @@ def run_backtest():
             date_str = date.strftime('%Y-%m-%d')
 
             # Load data for the current date
-            data = data_loader.load_data(symbol='sh000001', start_date=date_str, end_date=date_str)
+            data = data_loader.load_data(symbol='sz000002', start_date=date_str, end_date=date_str)
             if data is None:
                 logging.warning(f"No data loaded for {date_str}, skipping.")
                 continue
